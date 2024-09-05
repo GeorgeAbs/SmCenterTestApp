@@ -1,0 +1,18 @@
+services:
+  smcentertestapp.api:
+    image: ${DOCKER_REGISTRY-}smcentertestappapi
+    build:
+      context: src/SmCenterTestApp
+      dockerfile: Dockerfile
+    ports:
+    - 8080:8080
+    depends_on: 
+    - sql-test
+  sql-test:
+    container_name: SqlServerContainer
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    ports:
+        - 1433:1433
+    environment:
+        - ACCEPT_EULA=Y
+        - MSSQL_SA_PASSWORD=PasswordPassword1*
